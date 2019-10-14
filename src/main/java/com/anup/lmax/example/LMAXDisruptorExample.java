@@ -33,7 +33,7 @@ public class LMAXDisruptorExample {
 
         startProducing(ringBuffer, 8, eventProducer);
         while(true){
-
+            //to ensure it waits to process all consumers
         }
         /*lmax.disruptor.halt();
         lmax.disruptor.shutdown();*/
