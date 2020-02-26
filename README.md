@@ -6,6 +6,8 @@ https://www.infoq.com/presentations/LMAX/
 
 Output -
 
+Configuration - Ring buffer size 4 , 1 producer (7 events) 2 consumers 
+
 Adding event -->ValueEvent{value=0, updatedBy='null'}
 Adding event -->ValueEvent{value=1, updatedBy='null'}
 Adding event -->ValueEvent{value=2, updatedBy='null'}

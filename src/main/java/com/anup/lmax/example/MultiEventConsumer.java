@@ -14,5 +14,5 @@ public class MultiEventConsumer implements EventConsumer {
         if(sequence%2 == 0 ) Thread.sleep(2000);
        // event.setUpdatedBy(updatedBy);
         System.out.println("Printing the event --> " + event + " placed at sequence number --> " + sequence+" by --> "+updatedBy);
-
-    }}
+    }
+}

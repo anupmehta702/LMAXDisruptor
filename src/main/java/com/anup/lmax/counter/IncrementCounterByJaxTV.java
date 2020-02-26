@@ -12,22 +12,25 @@ public class IncrementCounterByJaxTV {
     public static AtomicLong fooAtomic=new AtomicLong(0);
 
     public static void main(String[] args) {
-        /*
         increment();//~227
         incrementUsingVolatile();//~4000
-        incrementUsingLock();//~9029
-        incrementUsingAtomic();//~2800
-        */
-        /*
-        Thread t1 = new Thread(new ThreadUsingLock());
-        Thread t2 = new Thread(new ThreadUsingLock());
-        t1.start(); //~17471
-        t2.start(); //~17518 total = ~35000
-       */
+        incrementUsingAtomic();//~2700 single thread
+        incrementUsingLock();//~9000 single thread
+
+
         Thread t3 = new Thread(new ThreadUsingAtomic());
         Thread t4 = new Thread(new ThreadUsingAtomic());
-        t3.start(); //~7757
-        t4.start(); //~7763 total = ~15500
+        t3.start(); //~8000
+        t4.start(); //~8000 total = ~16000
+
+
+
+        Thread t1 = new Thread(new ThreadUsingLock());
+        Thread t2 = new Thread(new ThreadUsingLock());
+        t1.start(); //~22289
+        t2.start(); //~22361 total = ~44650
+
+
 
     }
 
@@ -59,8 +62,7 @@ public class IncrementCounterByJaxTV {
                 lock.unlock();
             }
         }
-        System.out.println("foo value "+foo);
-        System.out.println("Total time taken to increment using lock -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
+        System.out.println("Total time taken to increment using lock and single thread -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
     }
     public static void incrementUsingAtomic(){
         Long startTime =System.nanoTime();
@@ -75,8 +77,8 @@ public class IncrementCounterByJaxTV {
         for(long l=0;l < 250000000L ;l++){
             fooAtomic.getAndIncrement();
         }
+        System.out.println("Total time taken to increment using two threads Atomic -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
         System.out.println("counter -> "+fooAtomic);
-        System.out.println("Total time taken to increment using Atomic -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
     }
 
 
@@ -90,7 +92,7 @@ public class IncrementCounterByJaxTV {
                 lock.unlock();
             }
         }
+        System.out.println("Total time taken to increment using lock with two threads  -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
         System.out.println("foo value "+foo);
-        System.out.println("Total time taken to increment using lock -"+(startTime-System.nanoTime())/1000000+" by thread - "+ Thread.currentThread().getName());
     }
 }
